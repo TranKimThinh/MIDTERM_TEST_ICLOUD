@@ -13,7 +13,16 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // 1. Cấu hình Handlebars (Giao diện)
-app.engine('hbs', engine({ extname: '.hbs' }));
+app.engine('hbs', engine({
+    extname: '.hbs',
+    helpers: {
+        formatCurrency: (value) => {
+            if (value === undefined || value === null || isNaN(value)) return '0 ₫';
+            return Number(value).toLocaleString('vi-VN') + ' ₫';
+        },
+        indexPlusOne: (index) => index + 1
+    }
+}));
 app.set('view engine', 'hbs');
 
 // 2. Chia luồng kết nối Đọc và Ghi
@@ -60,6 +69,7 @@ app.get('/', async (req, res) => {
         const books = await BookRead.find().lean();
         res.render('home', {
             books,
+            totalBooks: books.length,
             name: "Trần Kim Thịnh",
             mssv: MSSV,
             vat: VAT_PERCENT
@@ -90,6 +100,7 @@ app.post('/add', async (req, res) => {
     }
 });
 
-app.listen(process.env.PORT, () => {
-    console.log('Server chạy tại: http://localhost:' + process.env.PORT);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server chạy tại: http://localhost:${PORT}`);
 });

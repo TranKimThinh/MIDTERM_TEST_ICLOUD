@@ -7,9 +7,23 @@
 </form>
 
 <h2>Danh sách Sách</h2>
-<ul>
-    {{#each books}}
-    <li>{{this.productId}} - {{this.title}} - Giá gốc: {{this.originalPrice}} - <b>Sau thuế: {{this.priceAfterTax}}</b>
-    </li>
-    {{/each}}
-</ul>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%; margin-top: 10px;">
+    <thead>
+        <tr style="background-color: #f2f2f2; text-align: left;">
+            <th>Mã SP</th>
+            <th>Tên sách</th>
+            <th>Giá gốc</th>
+            <th>Sau thuế</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each books}}
+        <tr>
+            <td>{{this.productId}}</td>
+            <td>{{this.title}}</td>
+            <td>{{this.originalPrice}}</td>
+            <td><b>{{this.priceAfterTax}}</b></td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
