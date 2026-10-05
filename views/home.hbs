@@ -1,0 +1,15 @@
+<h2>Thêm Sách Mới</h2>
+<form action="/add" method="POST">
+    <input type="text" name="productId" placeholder="Mã SP (VD: 26401)" required>
+    <input type="text" name="title" placeholder="Tên sách" required>
+    <input type="number" name="originalPrice" placeholder="Giá gốc" required>
+    <button type="submit">Lưu xuống Cloud</button>
+</form>
+
+<h2>Danh sách Sách</h2>
+<ul>
+    {{#each books}}
+    <li>{{this.productId}} - {{this.title}} - Giá gốc: {{this.originalPrice}} - <b>Sau thuế: {{this.priceAfterTax}}</b>
+    </li>
+    {{/each}}
+</ul>
